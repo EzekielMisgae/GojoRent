@@ -1,0 +1,149 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+  <body>
+    <%- include("./partials/nav.ejs") %>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <form action="/houses" method="POST" class="input-group">
+              <input type="text" class="form-control rounded" placeholder="Search" name="search" aria-label="Search"
+                aria-describedby="search-addon">
+              <button class="btn btn-primary rounded" type="submit" id="search-addon">
+                <i class="fas fa-search fa"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="houses content">
+        <h1 style="margin: 2% 0% 2% 5%; display: block;">List of available houses</h1>
+        <div class="container">
+          <div class="dropdown">
+            <button style="text-decoration: none;" class="btn btn-link text-dark dropdown-toggle" type="button"
+              id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Sort</i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Newest first</a>
+              <a class="dropdown-item" href="#">Price: high to low</a>
+              <a class="dropdown-item" href="#">Price: low to high</a>
+            </div>
+          </div>
+          <div class="row">
+            <% if (houses.length> 0) { %>
+              <% houses.forEach(house=> { %>
+                <div class="col-md-3 col-lg-3 col-sm-6">
+                  <div class="card">
+                    <% if (house.houseImages.length> 1) { %>
+                      <div id="carouselExampleControls<%= house._id %>" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                          <% for (let i=0; i < house.houseImages.length; i++) { %>
+                            <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                              <img class="card-img-top" src="../uploads/houses/<%= house.houseImages[i] %>"
+                                alt="House Image" />
+                            </div>
+                            <% } %>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls<%= house._id %>" role="button"
+                          data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls<%= house._id %>" role="button"
+                          data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </div>
+                      <% } else if (house.houseImages.length===1) { %>
+                        <img class="card-img-top" src="../uploads/houses/<%= house.houseImages[0] %>"
+                          alt="House Image" />
+                        <% } %>
+                          <div class="card-body">
+                            <h5 class="card-title"><a href="/houses/<%= house._id %>">Title: <%= house.title %></a></h5>
+                            <p class="card-text">House Price: <%= house.housePrice %> ETB</p>
+                            <p class="card-text">House Type: <%= house.houseType %>
+                            </p>
+                            <p class="card-text">City: <%= house.houseCity %>
+                            </p>
+                            <a href="/houses/<%= house._id %>" class="btn btn-primary">For more details</a>
+                            <i class="fa fa-heart-o favorite-icon" data-house-id="<%= house._id %>"></i>
+                          </div>
+                  </div>
+                </div>
+                <% }) %>
+                  <% } else { %>
+                    <p>There are no houses to display...</p>
+                    <% } %>
+          </div>
+
+        </div>
+        <% if (totalPages> 1) { %>
+          <nav>
+            <ul class="pagination justify-content-center">
+              <% if (currentPage> 1) { %>
+                <li class="page-item"><a class="page-link" href="?page=<%= currentPage - 1 %>">Previous</a></li>
+                <% } %>
+                  <% for (let i=1; i <=totalPages; i++) { %>
+                    <% if (i===currentPage) { %>
+                      <li class="page-item active"><span class="page-link">
+                    <%= i %>
+                      </span></li>
+                  <% } else { %>
+                    <li class="page-item"><a class="page-link" href="?page=<%= i %>">
+                    <%= i %>
+                      </a></li>
+                  <% } %>
+                <% } %>
+              <% if (currentPage < totalPages) { %>
+                <li class="page-item"><a class="page-link" href="?page=<%= currentPage + 1 %>">Next</a>
+                </li>
+              <% } %>
+            </ul>
+          </nav>
+          <% } %>
+            <%- include("./partials/footer.ejs") %>
+      </div>
+  </body>
+  <style>
+    .card {
+      border: none;
+      padding: 20px;
+    }
+    .card-img-top {
+      width: 329px;
+      height: 100%;
+      object-fit: cover;
+    }
+    .favorite-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 24px;
+      color: #ccc;
+      margin: 10px;
+      cursor: pointer;
+    }
+    .favorite-icon.favorited {
+      color: #ff5252;
+    }
+  </style>
+  <script>
+    // Function to handle clicking on the favorites icon
+    function addToFavorites(houseId) {
+      const favoritesIcon = document.getElementById(`favoritesIcon${houseId}`);
+      favoritesIcon.classList.toggle('fas');
+      favoritesIcon.classList.toggle('far');
+      favoritesIcon.classList.toggle('text-danger');
+    }
+
+    // Add event listener to favorites icon
+    document.querySelectorAll('.favorites-icon').forEach(icon => {
+      icon.addEventListener('click', (e) => {
+        const houseId = e.target.dataset.houseId;
+        addToFavorites(houseId);
+      });
+    });
+  </script>
+</html>
