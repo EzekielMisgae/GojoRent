@@ -1,20 +1,20 @@
 <nav id="navbar" class="navbar">
   <div class="site-title">
     <a style="text-decoration: none;" href="/">
-      <h1 class="title">GojoRent | <%= title %>
-      </h1>
+      <h1 class="title">GojoRent</h1>
     </a>
   </div>
   <ul>
     <li><a class="nav-link scrollto active" id="home" href="/">Home</a></li>
     <li><a class="nav-link scrollto o" id="profile" href="/about">About</a></li>
-    <li><a class="nav-link scrollto o" id="login" href="/houses/create">Upload</a></li>
+    <li><a class="nav-link scrollto o" id="create" href="/houses/create">Upload</a></li>
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-user"></i>User</a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="#">Profile</a>
-        <a class="dropdown-item" href="#">Login</a>
+        <a class="dropdown-item" href="/basic">Profile</a>
+        <a class="dropdown-item" href="/login">Login</a>
       </div>
     </li>
   </ul>
@@ -22,46 +22,40 @@
 
 <style>
   h1.title {
-font-size: 20px;
-    }
-.profile-menu {
-  position: relative;
-  display: inline-block;
-}
-
-.profile-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.menu-items {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  z-index: 1;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 10px;
-  display: none;
-}
-
-.menu-items li {
-  list-style: none;
-  margin-bottom: 10px;
-}
-
-.menu-items li a {
-  color: #333;
-  text-decoration: none;
-  display: block;
-  padding: 5px 10px;
-}
-
-.menu-items li a:hover {
-  background-color: #f4f4f4;
-}
-
+    font-size: 20px;
+  }
+  .profile-menu {
+    position: relative;
+    display: inline-block;
+  }
+  .profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .menu-items {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    display: none;
+  }
+  .menu-items li {
+    list-style: none;
+    margin-bottom: 10px;
+  }
+  .menu-items li a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    padding: 5px 10px;
+  }
+  .menu-items li a:hover {
+    background-color: #f4f4f4;
+  }
 </style>
