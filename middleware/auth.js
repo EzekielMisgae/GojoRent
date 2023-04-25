@@ -19,7 +19,7 @@ exports.adminAuth = (req, res, next) => {
   } else {
     return res
       .status(401)
-      .json({ message: "Not authorized, token not available" });
+      // .json({ message: "Not authorized, token not available" });
   }
 };
 exports.userAuth = (req, res, next) => {
@@ -39,6 +39,6 @@ exports.userAuth = (req, res, next) => {
   } else {
     return res
       .status(401)
-      .json({ message: "Not authorized, token not available" });
+      // .json({ message: "Not authorized, token not available" });
   }
 };
