@@ -1,49 +1,8 @@
-const House = require('../models/house');
-const User = require('../models/user');
-const multer = require('multer');
-const path = require('path');
-const sharp = require('sharp');
-
-// Set storage engine for multer
-const storage = multer.diskStorage({
-  destination: './public/uploads/houses/',
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-  },
-  // Add transformFile function to resize and crop the image
-  transformFile: function (req, file, cb) {
-    sharp(file.path)
-      .resize(800, 600) // Set the desired width and height here
-      .toFormat('jpeg')
-      .toBuffer(function (err, buffer) {
-        if (err) {
-          return cb(err);
-        }
-        cb(null, buffer);
-      });
-  },
-});
-
-// Initialize upload for multer
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 100000000,
-  },
-  fileFilter: function (req, file, cb) {
-    checkFileType(file, cb);
-  },
-}).array('houseImage', 3);
-function checkFileType(file, cb) {
-  const filetypes = /jpeg|jpg|png|gif/;
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = filetypes.test(file.mimetype);
-  if (mimetype && extname) {
-    return cb(null, true);
-  } else {
-    cb('Error: Images Only!');
-  }
-}
+const House = require('../model/house');
+const User = require('../model/User');
+// const multer = require('multer');
+// const path = require('path');
+// const sharp = require('sharp');
 
 // Display list of all Houses
 exports.index = async function (req, res) {
@@ -61,7 +20,6 @@ exports.index = async function (req, res) {
     console.log(err);
   }
 };
-
 
 // Display House create form on GET
 exports.house_upload_get = function (req, res) {
@@ -97,7 +55,6 @@ exports.house_upload_post = function (req, res, next) {
   });
 };
 
-
 // Display House delete form on GET
 exports.house_delete_get = function (req, res) {
   House.findById(req.params.id, function (err, house) {
@@ -109,7 +66,6 @@ exports.house_delete_get = function (req, res) {
   });
 };
 
-
 // Display detail page for a specific House
 exports.house_details = function (req, res, next) {
   House.findById(req.params.id, function (err, house) {
@@ -120,7 +76,6 @@ exports.house_details = function (req, res, next) {
     }
   });
 };
-
 
 // Handle House delete on POST
 exports.house_delete_post = function (req, res) {
