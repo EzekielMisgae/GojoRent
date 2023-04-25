@@ -17,7 +17,15 @@
         </div>
       </div>
       <div class="houses content">
-        <h1 style="margin: 2% 0% 2% 5%; display: block;">List of available houses</h1>
+        <footer id="footer">
+          <div style="padding: 0px 0 20px 0;" class="footer-top">
+            <div class="row">
+              <div class="col-lg-3 col-md-6 footer-contact">
+                <h3 style="margin: 2% 0% 2% 5%; display: block;">List of available houses</h3>
+              </div>
+            </div>
+          </div>
+        </footer>
         <div class="container">
           <div class="dropdown">
             <button style="text-decoration: none;" class="btn btn-link text-dark dropdown-toggle" type="button"
@@ -30,6 +38,20 @@
               <a class="dropdown-item" href="#">Price: low to high</a>
             </div>
           </div>
+
+          <div class="dropdown">
+            <button style="text-decoration: none;" class="btn btn-link text-dark dropdown-toggle" type="button"
+              id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Filter</i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Room</a>
+              <a class="dropdown-item" href="#">Apartment</a>
+              <a class="dropdown-item" href="#">Compound</a>
+              <a class="dropdown-item" href="#">Condominium</a>
+            </div>
+          </div>
+          <hr>
           <div class="row">
             <% if (houses.length> 0) { %>
               <% houses.forEach(house=> { %>
@@ -74,10 +96,10 @@
                 </div>
                 <% }) %>
                   <% } else { %>
-                    <p>There are no houses to display...</p>
+                    <p><strong>Sorry!</strong> There are no houses to display for the moment...</p>
                     <% } %>
           </div>
-
+          <hr>
         </div>
         <% if (totalPages> 1) { %>
           <nav>
@@ -88,18 +110,18 @@
                   <% for (let i=1; i <=totalPages; i++) { %>
                     <% if (i===currentPage) { %>
                       <li class="page-item active"><span class="page-link">
-                    <%= i %>
-                      </span></li>
-                  <% } else { %>
-                    <li class="page-item"><a class="page-link" href="?page=<%= i %>">
-                    <%= i %>
-                      </a></li>
-                  <% } %>
-                <% } %>
-              <% if (currentPage < totalPages) { %>
-                <li class="page-item"><a class="page-link" href="?page=<%= currentPage + 1 %>">Next</a>
-                </li>
-              <% } %>
+                          <%= i %>
+                        </span></li>
+                      <% } else { %>
+                        <li class="page-item"><a class="page-link" href="?page=<%= i %>">
+                            <%= i %>
+                          </a></li>
+                        <% } %>
+                          <% } %>
+                            <% if (currentPage < totalPages) { %>
+                              <li class="page-item"><a class="page-link" href="?page=<%= currentPage + 1 %>">Next</a>
+                              </li>
+                              <% } %>
             </ul>
           </nav>
           <% } %>
@@ -111,11 +133,13 @@
       border: none;
       padding: 20px;
     }
+
     .card-img-top {
       width: 329px;
       height: 100%;
       object-fit: cover;
     }
+
     .favorite-icon {
       position: absolute;
       top: 0;
@@ -125,6 +149,7 @@
       margin: 10px;
       cursor: pointer;
     }
+
     .favorite-icon.favorited {
       color: #ff5252;
     }
@@ -146,4 +171,5 @@
       });
     });
   </script>
+
 </html>
