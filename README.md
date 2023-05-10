@@ -12,17 +12,17 @@ You will need to have the following software installed on your system:
 
 ## Installation
 Clone the repository to your local machine:
-git clone https://github.com/<your-username>/gojorent.git
+`git clone https://github.com/<your-username>/gojorent.git`
   
 ### Install the required dependencies:
-npm install
+`npm install`
   
 ### Set up the database by running the following command:
+`npm run db:setup`
 
-npm run db:setup
 Start the application:
+`npm start`
 
-npm start
 Access the application at http://localhost:3000 in your web browser.
 
   ## Usage
